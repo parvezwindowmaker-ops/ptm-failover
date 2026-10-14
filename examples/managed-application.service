@@ -1,0 +1,16 @@
+[Unit]
+Description=Prepared managed application
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/managed-application
+ExecStart=/usr/bin/docker compose up -d --no-build --pull never
+ExecStop=/usr/bin/docker compose stop
+TimeoutStartSec=60
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+services:
+  application:
+    image: ${MANAGED_APP_IMAGE:?Set a pinned tested application image or digest}
+    restart: unless-stopped
+    ports: ['127.0.0.1:3000:3000']
+    env_file: ./application.env
+    environment:
+      SERVER_ID: ${SERVER_ID:?Set a unique origin identity}
+      APPLICATION_RELEASE: ${APPLICATION_RELEASE:?Set the same tested release on both origins}
+    security_opt: ['no-new-privileges:true']
+    # Terminate TLS at a prepared reverse proxy; configure shared durable dependencies.

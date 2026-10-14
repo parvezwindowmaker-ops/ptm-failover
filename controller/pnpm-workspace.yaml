@@ -1,0 +1,22 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+nodeLinker: hoisted
+linkWorkspacePackages: true
+autoInstallPeers: false
+strictPeerDependencies: false
+storeDir: .pnpm-store
+fetchRetries: 1
+fetchTimeout: 20000
+networkConcurrency: 1
+allowBuilds:
+  better-sqlite3: true
+  argon2: true
+  esbuild: true
+  ssh2: false
+  cpu-features: false
+minimumReleaseAgeExclude:
+  - '@aws-sdk/client-ec2@3.1151.0'
+  - '@fastify/helmet@13.2.0'
+  - fastify@5.12.7
+  - lucide-react@1.57.0

@@ -1,0 +1,28 @@
+services:
+  demo:
+    profiles: ['demo']
+    build: .
+    image: ptm-failover:demo-local
+    ports:
+      - '127.0.0.1:8080:8080'
+    environment:
+      NODE_ENV: production
+      PORT: '8080'
+      DATA_DIR: /data
+      APP_BASE_URL: http://localhost:8080
+      PTM_MASTER_KEY_FILE: /run/secrets/ptm_master_key
+      PTM_BOOTSTRAP_TOKEN_FILE: /run/secrets/ptm_bootstrap_token
+      AUTOMATION_DEFAULT: 'false'
+      DEMO_MODE: 'true'
+    secrets: [ptm_master_key, ptm_bootstrap_token]
+    volumes: [ptm_demo_data:/data]
+    security_opt: ['no-new-privileges:true']
+    cap_drop: ['ALL']
+    stop_grace_period: 30s
+secrets:
+  ptm_master_key:
+    file: ./secrets/master-key
+  ptm_bootstrap_token:
+    file: ./secrets/bootstrap-token
+volumes:
+  ptm_demo_data:
